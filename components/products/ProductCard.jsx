@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { TouchableOpacity, Image } from 'react-native';
+import { Pressable, Image } from 'react-native';
 
 import { CustomText } from '@/components/CustomText';
 import { CustomView } from '@/components/CustomView';
@@ -7,6 +7,9 @@ import { CustomView } from '@/components/CustomView';
 
 
 export const ProductCard = ({ product }) => {
+
+  console.log(product)
+
   return (
     <CustomView
       style={{
@@ -18,16 +21,24 @@ export const ProductCard = ({ product }) => {
         padding: 5,
       }}
     >
-      <TouchableOpacity onPress={() => router.push(`/product/${product.id}`)}>
+      <Pressable
+        style={({ pressed }) => ({
+          height: 250,
+          opacity: pressed ? 0.5 : 1,
+        })}
+        onPress={() => router.push(`/product/${product.id}`)}
+      >
         {product.images.length === 0 ? (
           <Image
             source={require('@/assets/images/no-product-image.png')}
             style={{ width: '100%', height: 200 }}
+            resizeMode="contain"
           />
         ) : (
           <Image
             source={{ uri: product.images[0] }}
             style={{ flex: 1, height: 200, width: '100%' }}
+            resizeMode="contain"
           />
         )}
 
@@ -38,7 +49,7 @@ export const ProductCard = ({ product }) => {
         >
           {product.title}
         </CustomText>
-      </TouchableOpacity>
+      </Pressable>
     </CustomView>
   );
 };
