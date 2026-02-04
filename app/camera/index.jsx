@@ -25,7 +25,7 @@ import { useCameraStore } from '@/lib/stores/useCameraStore';
 
 
 export default function CameraScreen() {
-  const { addSelectedImage } = useCameraStore();
+  const { selectedImages, addSelectedImage } = useCameraStore();
 
   const [facing, setFacing] = useState('back');  // CameraType
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
@@ -117,6 +117,7 @@ export default function CameraScreen() {
     await MediaLibrary.createAssetAsync(selectedImage);
 
     addSelectedImage(selectedImage);
+    console.log('acepted', selectedImages.map((image) => image.split('/').pop().split('.').shift()))
 
     router.dismiss();
   };
