@@ -1,6 +1,9 @@
 # Shop App
 
 
+## Inspiración
+
+La aplicación está fuertemente inspirada en [expo-products-app](https://github.com/DevTalles-corp/expo-products-app)
 
 
 ## Actualizaciones
@@ -25,17 +28,18 @@ bunx expo start
 >
 > En el archivo `app.json` se debe cambiar la propiedad `newArchEnabled` a `true` para habilitar la nueva arquitectura de React Native.
 > 
-> En expo 54 se debe instalar `react-native-worklets`
-> 
-> ```sh
-> bunx expo install react-native-worklets
-> ```
+> En expo 54 se debe instalar `react-native-worklets`: `bunx expo install react-native-worklets`
 
 
-## Dev
+Posteriormente se usó npm en lugar de bun y se resolvieron algunas incidencias con las versiones de algunos paquetes. Se eliminó la carpeta `node_modules` y se volvió a instalar las dependencias con `npm install`.
 
-1. Instalar las dependencias `bun install`
+## Prueba y Desarrollo local
+
+1. Instalar las dependencias `npm install`
 2. Clonar `.env.template` a `.env` y cambiar la dirección IP o dominio del backend
-3. Ejecutar `bunx expo start`
+3. Ejecutar `npx expo start`
 
 
+## Backend usado
+
+El backend usado es [nxapi-shop](https://github.com/jamj2000/nxapi-shop) desplegado en [Vercel](https://nxapi-shop.vercel.app)
