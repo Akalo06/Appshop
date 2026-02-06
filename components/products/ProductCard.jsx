@@ -25,14 +25,14 @@ export const ProductCard = ({ product }) => {
           },
         ]}
       >
-        {" "}
+        
         <View style={styles.imageContainer}>
-          {" "}
+          
           <Image
             source={imageUrl}
             style={styles.image}
             resizeMode="cover"
-          />{" "}
+          />
         </View>
         <View style={styles.info}>
           <CustomText numberOfLines={2} style={styles.title} darkColor="black">
