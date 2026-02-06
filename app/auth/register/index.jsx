@@ -1,6 +1,7 @@
 import CustomButton from '@/components/CustomButton';
 import { CustomText } from '@/components/CustomText';
 import CustomTextInput from '@/components/CustomTextInput';
+import { authRegister } from '@/lib/actions/auth';
 import { Link } from 'expo-router';
 import {
   KeyboardAvoidingView,
@@ -9,11 +10,42 @@ import {
   View,
 } from 'react-native';
 import Colors from '@/lib/colors';
+import { useState } from 'react';
+import { register } from 'react-native/types_generated/Libraries/Renderer/shims/ReactNativeViewConfigRegistry';
 
 const RegisterScreen = () => {
-  const { height } = useWindowDimensions();
-  const backgroundColor = Colors.background;
-  const primaryColor = Colors.primary;
+
+    const { height } = useWindowDimensions();
+    const backgroundColor = Colors.background;
+    const primaryColor = Colors.primary;
+   const [isPosting, setIsPosting] = useState(false);
+    const [form, setForm] = useState({
+      fullName: '',
+      email: '',
+      password: '',
+    });
+   
+    const onRegister = async () => {
+      const {fullName, email, password } = form;
+  
+      if (fullName.length ===0 || email.length === 0 || password.length === 0) {
+        Alert.alert('Error', 'Por favor completa todos los campos');
+        return;
+      }
+  
+      setIsPosting(true);
+      const wasSuccessful = await authRegister(fullName,email, password);
+      setIsPosting(false);
+  
+      if (wasSuccessful) {
+        router.replace('/auth/login');
+        return;
+      }
+  
+      Alert.alert('Error', 'Usuario o contraseña no son correctos');
+    };
+  
+  
 
   return (
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
