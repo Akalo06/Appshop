@@ -22,7 +22,7 @@ style,
 {isLoading ? ( <ActivityIndicator color="white" />
 ) : ( <View style={styles.content}> <Text style={styles.text}>{children}</Text>
 
-```
+
       {icon && (
         <Ionicons
           name={icon}

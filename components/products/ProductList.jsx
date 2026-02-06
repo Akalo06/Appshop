@@ -12,13 +12,13 @@ const onPullToRefresh = async () => {
 setIsRefreshing(true);
 await new Promise((resolve) => setTimeout(resolve, 300));
 
-```
+
 queryClient.invalidateQueries({
   queryKey: ['products', 'infinite'],
 });
 
 setIsRefreshing(false);
-```
+
 
 };
 
