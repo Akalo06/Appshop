@@ -7,20 +7,16 @@ import {
   View,
 } from 'react-native';
 
-import { router } from 'expo-router';
+import { router, Link } from 'expo-router';
 
 import CustomButton from '@/components/CustomButton';
 import { CustomText } from '@/components/CustomText';
 import CustomTextInput from '@/components/CustomTextInput';
 import Colors from '@/lib/colors';
 import { useAuthStore } from '@/lib/stores/useAuthStore';
-import { Link } from 'expo-router';
-
-
 
 const LoginScreen = () => {
   const { login } = useAuthStore();
-
   const { height } = useWindowDimensions();
   const backgroundColor = Colors.background;
 
@@ -33,9 +29,8 @@ const LoginScreen = () => {
   const onLogin = async () => {
     const { email, password } = form;
 
-    console.log({ email, password });
-
     if (email.length === 0 || password.length === 0) {
+      Alert.alert('Error', 'Por favor completa todos los campos');
       return;
     }
 
@@ -55,23 +50,22 @@ const LoginScreen = () => {
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
       <ScrollView
         style={{
-          paddingHorizontal: 40,
-          backgroundColor: backgroundColor,
+          flex: 1,
+          backgroundColor,
+          paddingHorizontal: 30,
         }}
+        contentContainerStyle={{ paddingBottom: 40 }}
       >
-        <View
-          style={{
-            paddingTop: height * 0.35,
-          }}
-        >
+        {/* Header */}
+        <View style={{ paddingTop: height * 0.25, marginBottom: 40 }}>
           <CustomText type="title">Ingresar</CustomText>
-          <CustomText style={{ color: 'grey' }}>
+          <CustomText type="subtitle" style={{ color: 'grey', marginTop: 5 }}>
             Por favor ingrese para continuar
           </CustomText>
         </View>
 
-        {/* Email y Password */}
-        <View style={{ marginTop: 20 }}>
+        {/* Formulario */}
+        <View style={{ marginBottom: 30 }}>
           <CustomTextInput
             placeholder="Correo electrónico"
             keyboardType="email-address"
@@ -91,20 +85,14 @@ const LoginScreen = () => {
           />
         </View>
 
-        {/* Spacer */}
-        <View style={{ marginTop: 10 }} />
-
-        {/* Botón */}
+        {/* Botón Ingresar */}
         <CustomButton
           icon="arrow-forward-outline"
           onPress={onLogin}
-          disabled={isPosting}
+          isLoading={isPosting}
         >
           Ingresar
         </CustomButton>
-
-        {/* Spacer */}
-        <View style={{ marginTop: 50 }} />
 
         {/* Enlace a registro */}
         <View
@@ -112,17 +100,18 @@ const LoginScreen = () => {
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
+            marginTop: 50,
           }}
         >
           <CustomText>¿No tienes cuenta?</CustomText>
 
-          <Link href="/auth/register" style={{ color: '#3D64F4', marginHorizontal: 5 }}>
-            Crear cuenta
+          <Link href="/auth/register" style={{ marginHorizontal: 5 }}>
+            <CustomText style={{ color: Colors.primary }}>Crear cuenta</CustomText>
           </Link>
-
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
+
 export default LoginScreen;
