@@ -2,8 +2,9 @@ import CustomButton from '@/components/CustomButton';
 import { CustomText } from '@/components/CustomText';
 import CustomTextInput from '@/components/CustomTextInput';
 import { authRegister } from '@/lib/actions/auth';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import {
+  Alert,
   KeyboardAvoidingView,
   ScrollView,
   useWindowDimensions,
