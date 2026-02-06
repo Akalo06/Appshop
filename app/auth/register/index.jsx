@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Colors from '@/lib/colors';
 import { useState } from 'react';
-import { register } from 'react-native/types_generated/Libraries/Renderer/shims/ReactNativeViewConfigRegistry';
+
 
 const RegisterScreen = () => {
 
@@ -66,12 +66,14 @@ const RegisterScreen = () => {
           </CustomText>
         </View>
 
-        {/* Email y Password */}
+        {/*Nombre Completo Email y Password */}
         <View style={{ marginTop: 20 }}>
           <CustomTextInput
             placeholder="Nombre completo"
             autoCapitalize="words"
             icon="person-outline"
+            value={form.fullName}
+            onChangeText={(value) => setForm({ ...form, fullName: value })}
           />
 
           <CustomTextInput
@@ -79,6 +81,8 @@ const RegisterScreen = () => {
             keyboardType="email-address"
             autoCapitalize="none"
             icon="mail-outline"
+            value={form.email}
+            onChangeText={(value) => setForm({ ...form, email: value })}
           />
 
           <CustomTextInput
@@ -86,6 +90,8 @@ const RegisterScreen = () => {
             secureTextEntry
             autoCapitalize="none"
             icon="lock-closed-outline"
+            value={form.password}
+            onChangeText={(value) => setForm({ ...form, password: value })}
           />
         </View>
 
@@ -93,7 +99,14 @@ const RegisterScreen = () => {
         <View style={{ marginTop: 10 }} />
 
         {/* Botón */}
-        <CustomButton icon="arrow-forward-outline">Crear cuenta</CustomButton>
+        <CustomButton icon="arrow-forward-outline"
+         onPress={onRegister}
+          isLoading={isPosting}
+        
+        >
+          
+          
+          Crear cuenta</CustomButton>
 
         {/* Spacer */}
         <View style={{ marginTop: 50 }} />
