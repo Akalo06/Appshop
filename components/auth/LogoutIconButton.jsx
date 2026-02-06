@@ -22,7 +22,7 @@ const LogoutIconButton = () => {
       
       <View style={styles.inner}>
         
-        <Ionicons name="log-out-outline" size={20} color={primaryColor} />{" "}
+        <Ionicons name="log-out-outline" size={20} color={primaryColor} />
       </View>
     </Pressable>
   );
