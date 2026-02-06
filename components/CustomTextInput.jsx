@@ -42,7 +42,6 @@ style={styles.icon}
 />
 )}
 
-```
   <TextInput
     ref={inputRef}
     placeholderTextColor="#999"
