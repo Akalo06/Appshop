@@ -55,7 +55,7 @@ This is a simple API for a shop application.
 1. Clone the repository
 
 ```bash
-git clone https://github.com/jamj2000/nxapi-shop.git
+git clone https://github.com/akalo06/Appshop.git
 ```
 
 2. Install dependencies
