@@ -2,7 +2,7 @@
   "expo": {
     "newArchEnabled": true,
     "name": "shop",
-    "slug": "shop",
+    "slug": "mi-appshop",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -42,11 +42,12 @@
         "origin": false
       },
       "eas": {
-        "projectId": "e13dfeab-4a91-4f12-a848-9ead4ba042a7"
+        "projectId": "99c0ebcc-0c01-4d3f-b4c8-3e25dfceff62"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
-    }
+    },
+    "owner": "akalo06"
   }
 }

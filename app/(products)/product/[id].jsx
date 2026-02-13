@@ -28,7 +28,7 @@ const ProductScreen = () => {
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
 
-  // 🔥 AHORA TRAEMOS deleteMutation
+ 
   const { productQuery, productMutation, deleteMutation } = useProduct(`${id}`);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const ProductScreen = () => {
           text: 'Eliminar',
           style: 'destructive',
           onPress: () => {
-            deleteMutation.mutate(undefined, {
+            deleteMutation.mutate(id, {
               onSuccess: () => router.replace('/'),
             });
           },
@@ -190,7 +190,7 @@ const ProductScreen = () => {
               </CustomButton>
             </View>
 
-            {/* 🔥 BOTÓN BORRAR */}
+            {/* BOTÓN BORRAR */}
             <View style={{ marginHorizontal: 10, marginBottom: 80, marginTop: 15 }}>
               <CustomButton
                 icon="trash-outline"

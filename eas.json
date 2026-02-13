@@ -16,7 +16,14 @@
       }
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_HOST": "https://nxapi-shop.vercel.app",
+        "EXPO_PUBLIC_IMAGES_PATH": "/api/files/product/"
+      }
     }
   },
   "submit": {
