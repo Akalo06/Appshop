@@ -5,6 +5,7 @@ import {
   ScrollView,
   Platform,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import {
   Redirect,
@@ -22,21 +23,16 @@ import { Formik } from 'formik';
 import CameraIconButton from '@/components/CameraIconButton';
 import { useCameraStore } from '@/lib/stores/useCameraStore';
 
-
-
-
 const ProductScreen = () => {
   const { selectedImages, clearImages } = useCameraStore();
-
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
 
-  const { productQuery, productMutation } = useProduct(`${id}`);
+  // 🔥 AHORA TRAEMOS deleteMutation
+  const { productQuery, productMutation, deleteMutation } = useProduct(`${id}`);
 
   useEffect(() => {
-    return () => {
-      clearImages();
-    };
+    return () => clearImages();
   }, []);
 
   useEffect(() => {
@@ -50,7 +46,6 @@ const ProductScreen = () => {
     });
   }, []);
 
-
   useEffect(() => {
     if (productQuery.data) {
       navigation.setOptions({
@@ -59,6 +54,27 @@ const ProductScreen = () => {
     }
   }, [productQuery.data]);
 
+  // =============================
+  // FUNCIÓN BORRAR
+  // =============================
+  const onDeleteProduct = () => {
+    Alert.alert(
+      'Eliminar producto',
+      '¿Seguro que quieres borrarlo?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Eliminar',
+          style: 'destructive',
+          onPress: () => {
+            deleteMutation.mutate(undefined, {
+              onSuccess: () => router.replace('/'),
+            });
+          },
+        },
+      ]
+    );
+  };
 
   if (productQuery.isLoading) {
     return (
@@ -68,14 +84,11 @@ const ProductScreen = () => {
     );
   }
 
-
   if (!productQuery.data) {
     return <Redirect href="/" />;
   }
 
-  // const product = productQuery.data!;
   const product = productQuery.data;
-
 
   return (
     <Formik
@@ -144,18 +157,12 @@ const ProductScreen = () => {
               />
             </CustomView>
 
-            <CustomView
-              style={{
-                marginHorizontal: 10,
-              }}
-            >
+            <CustomView style={{ marginHorizontal: 10 }}>
               <ThemeButtonGroup
                 options={['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']}
                 selectedOptions={values.sizes}
                 onSelect={(selectedSize) => {
-                  const newSizesValue = values.sizes.includes(
-                    selectedSize
-                  )
+                  const newSizesValue = values.sizes.includes(selectedSize)
                     ? values.sizes.filter((s) => s !== selectedSize)
                     : [...values.sizes, selectedSize];
 
@@ -172,15 +179,8 @@ const ProductScreen = () => {
               />
             </CustomView>
 
-            {/* Botón para guardar */}
-
-            <View
-              style={{
-                marginHorizontal: 10,
-                marginBottom: 50,
-                marginTop: 20,
-              }}
-            >
+            {/* GUARDAR */}
+            <View style={{ marginHorizontal: 10, marginTop: 20 }}>
               <CustomButton
                 icon="save-outline"
                 onPress={() => handleSubmit()}
@@ -189,10 +189,24 @@ const ProductScreen = () => {
                 Guardar
               </CustomButton>
             </View>
+
+            {/* 🔥 BOTÓN BORRAR */}
+            <View style={{ marginHorizontal: 10, marginBottom: 80, marginTop: 15 }}>
+              <CustomButton
+                icon="trash-outline"
+                onPress={onDeleteProduct}
+                isLoading={deleteMutation.isPending}
+                style={{ backgroundColor: '#ff3b30' }}
+              >
+                Borrar producto
+              </CustomButton>
+            </View>
+
           </ScrollView>
         </KeyboardAvoidingView>
       )}
     </Formik>
   );
 };
+
 export default ProductScreen;
